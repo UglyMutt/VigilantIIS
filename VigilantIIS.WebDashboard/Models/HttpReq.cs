@@ -3,7 +3,7 @@ using MongoDB.Bson;
 
 namespace VigilantIIS.WebDashboard.Models
 {
-    public class WebRequestModel
+    public class HttpReq
     {
         public String _id { get; set; }
         public DateTime RequestedOn { get; set; }
@@ -14,7 +14,7 @@ namespace VigilantIIS.WebDashboard.Models
         public String Port { get; set; }
         public String Authority { get; set; }
 
-        public static BsonDocument WebRequestModelToBsonDocument(WebRequestModel model)
+        public static BsonDocument HttpReqToBsonDocument(HttpReq model)
         {
             var document = new BsonDocument()
             {
@@ -30,9 +30,9 @@ namespace VigilantIIS.WebDashboard.Models
             return document;
         }
 
-        public static WebRequestModel BsonDocumentToWebRequestModel(BsonDocument document)
+        public static HttpReq BsonDocumentToHttpReq(BsonDocument document)
         {
-            return new WebRequestModel()
+            return new HttpReq()
             {
                 _id = document["_id"].ToString(),
                 RequestedOn = DateTime.Parse(document["RequestedOn"].ToString()),

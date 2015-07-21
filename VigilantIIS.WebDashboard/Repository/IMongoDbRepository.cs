@@ -6,10 +6,10 @@ namespace VigilantIIS.WebDashboard.Repository
 {
     public interface IMongoDbRepository
     {
-        Task<IEnumerable<WebRequestModel>> GetAllRecords();
-        WebRequestModel GetEntityById(string id);
-        void Add(WebRequestModel entity);
-        void Update(string objectId, WebRequestModel entity);
+        Task<IEnumerable<HttpReq>> GetAllRecords();
+        HttpReq GetEntityById(string id);
+        void Add(HttpReq entity);
+        void Update(string objectId, HttpReq entity);
         void Delete(string objectId);         
     }
 }

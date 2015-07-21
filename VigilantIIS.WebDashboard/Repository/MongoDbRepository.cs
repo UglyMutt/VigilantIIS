@@ -15,7 +15,7 @@ namespace VigilantIIS.WebDashboard.Repository
 
         public IMongoDatabase Database;
         public IMongoCollection<BsonDocument> EntityCollection;
-        public WebRequestModel Entites = new WebRequestModel();
+        public HttpReq Entites = new HttpReq();
         public MongoClient Client;
 
         // Constructor
@@ -35,9 +35,9 @@ namespace VigilantIIS.WebDashboard.Repository
         /// Currently only grabs 100 records
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<WebRequestModel>> GetAllRecords()
+        public async Task<IEnumerable<HttpReq>> GetAllRecords()
         {
-            var entities = new List<WebRequestModel>();
+            var entities = new List<HttpReq>();
             var collection = Database.GetCollection<BsonDocument>("requests");
             var filter = new BsonDocument();
 
@@ -46,14 +46,14 @@ namespace VigilantIIS.WebDashboard.Repository
                 while (await cursor.MoveNextAsync())
                 {
                     var batch = cursor.Current;
-                    entities.AddRange(batch.Select(WebRequestModel.BsonDocumentToWebRequestModel).Take(100));
+                    entities.AddRange(batch.Select(HttpReq.BsonDocumentToHttpReq).Take(100));
                 }
             }
 
             return entities;
         }
 
-        public WebRequestModel GetEntityById(string id)
+        public HttpReq GetEntityById(string id)
         {
             if (string.IsNullOrEmpty(id))
             {
@@ -65,21 +65,21 @@ namespace VigilantIIS.WebDashboard.Repository
 
             var resultsFromQuery = threadResults.FirstOrDefault();
 
-            return resultsFromQuery == null ? new WebRequestModel() : WebRequestModel.BsonDocumentToWebRequestModel(resultsFromQuery);
+            return resultsFromQuery == null ? new HttpReq() : HttpReq.BsonDocumentToHttpReq(resultsFromQuery);
         }
 
-        public void Add(WebRequestModel entity)
+        public void Add(HttpReq entity)
         {
             if (!string.IsNullOrEmpty(entity._id.ToString()))
             {
                 return;
             }
 
-            EntityCollection.InsertOneAsync(WebRequestModel.WebRequestModelToBsonDocument(entity));
+            EntityCollection.InsertOneAsync(HttpReq.HttpReqToBsonDocument(entity));
         }
 
 
-        public void Update(string objectId, WebRequestModel employee)
+        public void Update(string objectId, HttpReq employee)
         {
             var updateBuilder = Builders<BsonDocument>.Update
                 .Set("RequestedOn", employee.RequestedOn.ToString(CultureInfo.InvariantCulture))

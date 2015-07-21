@@ -221,6 +221,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MeController.cs" />
+    <Compile Include="Controllers\RequestsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -228,7 +229,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MeViewModels.cs" />
-    <Compile Include="Models\WebRequestModel.cs" />
+    <Compile Include="Models\HttpReq.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Repository\IMongoDbRepository.cs" />

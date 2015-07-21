@@ -38,6 +38,12 @@ namespace VigilantIIS.WebDashboard
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/app").Include(
+                "~/Scripts/angular.min.js",
+                "~/Scripts/angular-resource.js",
+                "~/Scripts/app/app.js"
+                ));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                  "~/Content/bootstrap.css",
                  "~/Content/Site.css"));
