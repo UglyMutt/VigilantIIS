@@ -60,7 +60,7 @@ namespace VigilantIIS.WebDashboard.Repository
                 throw new ArgumentNullException("id", "Web Request Id is empty!");
             }
 
-            var filter = Builders<BsonDocument>.Filter.Eq("_id", id);
+            var filter = Builders<BsonDocument>.Filter.Eq("_id", new ObjectId(id));
             var threadResults = EntityCollection.Find(filter).ToListAsync().Result;
 
             var resultsFromQuery = threadResults.FirstOrDefault();
@@ -90,12 +90,12 @@ namespace VigilantIIS.WebDashboard.Repository
                 .Set("Port", employee.Port)
                 .Set("Authority", employee.Authority);
 
-            EntityCollection.UpdateOneAsync(Builders<BsonDocument>.Filter.Eq("_id", objectId), updateBuilder);
+            EntityCollection.UpdateOneAsync(Builders<BsonDocument>.Filter.Eq("_id", new ObjectId(objectId)), updateBuilder);
         }
 
         public void Delete(string objectId)
         {
-            EntityCollection.DeleteOneAsync(Builders<BsonDocument>.Filter.Eq("_id", objectId));
+            EntityCollection.DeleteOneAsync(Builders<BsonDocument>.Filter.Eq("_id", new ObjectId(objectId)));
         }
     }
 }

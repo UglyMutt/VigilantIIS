@@ -41,6 +41,7 @@ namespace VigilantIIS.WebDashboard
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                 "~/Scripts/angular.min.js",
                 "~/Scripts/angular-resource.js",
+                "~/Scripts/ui-bootstrap-tpls-0.13.0.min.js",
                 "~/Scripts/app/app.js"
                 ));
 

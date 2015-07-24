@@ -1,4 +1,4 @@
-﻿<div ng-controller="WelcomeController">
+﻿<div data-ng-controller="WelcomeController">
     <div class="jumbotron">
         <h1>{{message}}</h1>
         <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
@@ -10,14 +10,48 @@
         </div>
     </div>
 
-    <div ng-repeat="request in requests">
-        <div class="row">
-            <div class="col-md-3">
-                <b>Timestamp:</b>{{ request.RequestedOn }}
-            </div>
-            <div class="col-md-8">
-                <b>Url:</b> {{ request.Url }}
-            </div>
-        </div>
+    <div class="container">
+
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th data-ng-click="requestSort='siteName';reverseSort = !reverseSort">Site</th>
+                    <th>User Agent</th>
+                    <th>Ref</th>
+                    <th>Url</th>
+                    <th>Port</th>
+                    <th data-ng-click="requestSort='requestedOn';reverseSort = !reverseSort">Request Date</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="request in requests | orderBy:requestSort:reverseSort">
+                    <td>{{ request.siteName }}</td>
+                    <td>{{ request.userAgent }}</td>
+                    <td>{{ request.referrer }}</td>
+                    <td>{{ request.url }}</td>
+                    <td>{{ request.port }}</td>
+                    <td>{{ request.requestedOn | date:'medium' }}</td>
+                    <th><button class="btn btn-success btn-xs" data-title="Edit Request" data-toggle="tooltip" data-ng-click='openForEdit(request)'><span class="glyphicon glyphicon-edit"></span></button></th>
+                    <td><button class="btn btn-danger btn-xs" data-title="Delete Request" data-toggle="tooltip" data-ng-click='delete(request)'><span class="glyphicon glyphicon-trash"></span></button></td>
+                </tr>
+            </tbody>
+        </table>
+
     </div>
+
+    <script type="text/ng-template" id="requestEditModal.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Request Editor</h3>
+        </div>
+        <div class="modal-body" ng-model="requestBucket">
+            <input type="text" name="txtEditName" ng-model="editRequest.siteName" value="{{editRequest.siteName}}" />  -  {{ editRequest.requestedOn | date:'medium' }}
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="save()">Save</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
 </div>

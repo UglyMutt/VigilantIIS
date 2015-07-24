@@ -45,8 +45,9 @@ namespace VigilantIIS.WebDashboard.Controllers
         }
 
         // DELETE api/<controller>/5
-        public void Delete(int id)
+        public void Delete(string id)
         {
+            _repository.Delete(id);
         }
     }
 }
